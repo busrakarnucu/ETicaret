@@ -1,0 +1,155 @@
+﻿@model Takinti.Models.CheckoutViewModel
+@{
+    ViewBag.Title = "Alışverişi Tamamla";
+}
+
+<!-- Start Bradcaump area -->
+<div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(/images/bg/2.jpg) no-repeat scroll center center / cover ;">
+    <div class="ht__bradcaump__wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="bradcaump__inner text-center">
+                        <h2 class="bradcaump-title">Alışverişi Tamamla</h2>
+                        <nav class="bradcaump-inner">
+                            <a class="breadcrumb-item" href="index.html">Anasayfa</a>
+                            <span class="brd-separetor">/</span>
+                            <span class="breadcrumb-item active">Alışverişi Tamamla</span>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Bradcaump area -->
+<!-- Start Checkout Area -->
+<section class="our-checkout-area ptb--120 bg__white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-lg-8">
+                @using (Html.BeginForm())
+                {
+                <div class="ckeckout-left-sidebar">
+                    <!-- Start Checkbox Area -->
+                    <div class="checkout-form">
+                        <h2 class="section-title-3">Fatura Ayrıntıları</h2>
+                        <div class="checkout-form-inner">
+                            <div class="single-checkout-box">
+                                @Html.TextBoxFor(model => model.FullName, null, new { placeholder="Ad Soyad*"})
+                                <input type="text" placeholder="TC Kimlik No/Vergi No*">
+                            </div>
+                            <div class="single-checkout-box">
+                                <input type="email" placeholder="E-posta*">
+                                <input type="text" placeholder="Telefon*">
+                            </div>
+                            <div class="single-checkout-box">
+                                @Html.TextAreaFor(model => model.Address, new { placeholder = "Adres*" })
+                            </div>
+                            <div class="single-checkout-box select-option mt--40">
+                            @Html.DropDownListFor(model =>model.CountryId,(IEnumerable<SelectListItem>)ViewBag.Countries,"Ülke")                            
+    @*<select>
+                                    <option>Ülke*</option>
+                                    <option>Türkiye</option>
+                                    <option>Bangladesh</option>
+                                    <option>Bangladesh</option>
+                                    <option>Bangladesh</option>
+                                </select>*@
+                                <input type="text" placeholder="Firma Adı">
+                            </div>
+                            <div class="single-checkout-box">
+                                @Html.DropDownListFor(model => model.CityId, (IEnumerable<SelectListItem>)ViewBag.Cities, "Şehir")
+                                @*<select>
+            <option>Şehir*</option>
+            <option>İstanbul</option>
+            <option>Bangladesh</option>
+            <option>Bangladesh</option>
+            <option>Bangladesh</option>
+        </select>*@
+                                <input type="text" placeholder="Posta Kodu*">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Checkbox Area -->
+                    <!-- Start Payment Box -->
+                    <div class="payment-form">
+                        <h2 class="section-title-3">Ödeme Ayrıntıları</h2>
+                        <p>Sitemiz SSL sertifikası ile korunmaktadır, ayrıca 3D güvenlik kullanmaktayız.</p>
+                        <div class="payment-form-inner">
+                            <div class="single-checkout-box">
+                                <input type="text" placeholder="Kart Üzerindeki İsim*">
+                                <input type="text" placeholder="Kart Numarası*">
+                            </div>
+                            <div class="single-checkout-box">
+                                @Html.TextBoxFor(model=>model.CCV, null, new { placeholder="Güvenlik Kodu*", @class="form-control pull-right"})
+                                
+                                <div class="input-group pull-left" style="display:inline-block;">
+                                    <div style="display:inline-block;">
+                                        <select name="Month" class="form-control" style="width:167px;">
+                                            <option>Ay*</option>
+                                            @for(var i = 1; i <= 12; i++)
+                                            {
+                                                <option value="@i"@(Model != null && Model.Month == i?"selected='selected'":"")>@string.Format("{0:00}", i)</option>
+                                            }
+                                            
+                                        </select>
+                                    </div><div style="display:inline-block;">
+                                              <select name="Year" class="form-control" style="width:167px;">
+                                                  <option>Yıl*</option>
+                                                  @for (var i = DateTime.Now.Year; i <= DateTime.Now.Year+20; i++)
+    {
+                                              <option value="@i" @(Model != null && Model.Year == i ? "selected='selected'" : "")>@string.Format("{0:00}", i)</option>
+}
+                                              </select>
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        <br style="clear:both" />
+                    </div>
+                    <!-- End Payment Box -->
+                    <!-- Start Payment Way -->
+                    <div class="our-payment-sestem">
+                        <h2 class="section-title-3">Şu tip kartları kabul ediyoruz:</h2>
+                        <ul class="payment-menu">
+                            <li><a href="#"><img src="/images/payment/1.jpg" alt="payment-img"></a></li>
+                            <li><a href="#"><img src="/images/payment/2.jpg" alt="payment-img"></a></li>
+                            <li><a href="#"><img src="/images/payment/3.jpg" alt="payment-img"></a></li>
+                            <li><a href="#"><img src="/images/payment/4.jpg" alt="payment-img"></a></li>
+                            <li><a href="#"><img src="/images/payment/5.jpg" alt="payment-img"></a></li>
+                        </ul>
+                        <strong>Tahsil Edilecek Tutar: @(Session["Cart"]!=null?((Takinti.Models.Cart)Session["Cart"]).TotalPrice.ToString():"0")₺</strong>
+                            <button type="submit" class="btn btn-primary btn-large hover-theme">ÖDEMEYİ YAP VE SATIN AL</button>
+                        
+                    </div>
+                    <!-- End Payment Way -->
+                </div>
+                }
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <div class="checkout-right-sidebar">
+                    <div class="our-important-note">
+                        <h2 class="section-title-3">Notlar :</h2>
+                        <p class="note-desc">Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut laborekf et dolore magna aliqua.</p>
+                        <ul class="important-note">
+                            <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet, consectetur nipabali</a></li>
+                            <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet</a></li>
+                            <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet, consectetur nipabali</a></li>
+                            <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet, consectetur nipabali</a></li>
+                            <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet</a></li>
+                        </ul>
+                    </div>
+                    <div class="puick-contact-area mt--60">
+                        <h2 class="section-title-3">Hızlı İrtibat</h2>
+                        <a href="phone:+8801722889963">+90 850 444 0 333 </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Checkout Area -->
